@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+
 '''
 http://stackoverflow.com/questions/31952383/finding-the-furthest-point-in-a-grid-when-compared-to-other-points
 
