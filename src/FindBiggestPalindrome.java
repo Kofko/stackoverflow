@@ -19,6 +19,7 @@ public class FindBiggestPalindrome {
 
         public Comb(int[] nums) {
             this.nums = Arrays.copyOf(nums, nums.length);
+            Arrays.sort(this.nums);
             this.prod = 1;
             for (int num : nums) {
                 this.prod *= num;
@@ -42,6 +43,20 @@ public class FindBiggestPalindrome {
                     ", prod=" + prod +
                     '}';
         }
+
+        @Override
+        public int hashCode() {
+            return Arrays.hashCode(this.nums);
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o == null || !(o instanceof Comb)) {
+                return false;
+            }
+            Comb cmb = (Comb) o;
+            return this.prod == cmb.prod && Arrays.equals(this.nums, cmb.nums);
+        }
     }
 
     public static void main(String[] args) {
@@ -63,8 +78,8 @@ public class FindBiggestPalindrome {
         while (!q.isEmpty()) {
             // get combination with biggest product
             Comb comb = q.poll();
-            // skip all combinations with same product
-            while (!q.isEmpty() && comb.prod == q.peek().prod) {
+            // skip all same combinations
+            while (!q.isEmpty() && comb.equals(q.peek())) {
                 q.poll();
             }
             // check if product is a palindrome
